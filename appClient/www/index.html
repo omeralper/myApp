@@ -1,0 +1,135 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>bringme</title>
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/bootstrap.css" rel="stylesheet" />
+    <link href="css/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="page-header">
+        <h1>Example page header <small>Subtext for header</small></h1>
+    </div>
+    <div id="main-container">
+
+    </div>
+
+    <script id="postTemplate" type="text/template">
+        <div>
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active col-xs-6">
+                    <a href="#travel" aria-controls="travel" role="tab" data-toggle="tab">I travel</a>
+                </li>
+                <li role="presentation" class="col-xs-6">
+                    <a href="#need" aria-controls="need" role="tab" data-toggle="tab">I need</a>
+                </li>
+            </ul>
+            <!-- Tab panes -->
+            <div id="tab" class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="travel">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="fromCounty" placeholder="From Country">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="fromCity" placeholder="From">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="toCountry" placeholder="To Country">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="toCity" placeholder="To City">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="availableWeight" placeholder="Available Weight">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="availableVolume" placeholder="Available Volume">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="startDate" placeholder="Date Interval">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="finishtDate" placeholder="Date Interval">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="minPrice" placeholder="Minimum Price">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="explanation" placeholder="Explanation">
+                    </div>
+                    <button  id="travelSubmit" type="submit" class="btn btn-default">Submit</button>
+                </div>
+                <div role="tabpanel" class="tab-pane fade" id="need">
+                    <div class="form-group">
+                        <label for="from">something</label>
+                        <input type="text" class="form-control col-xs-12" id="something" placeholder="something">
+                    </div>
+                    <div class="form-group">
+                        <label for="iliveat">I live at</label>
+                        <div id="iliveat">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="cityPickerTemplate" type="text/template">
+       
+        <select id="countryPicker" class="selectpicker dropdown mobile col-xs-12" title='Country' dropupAuto="false">
+            <!--TODO: burada başka bir template kütüphanesi kullanalım, mustache falan-->
+            {% 
+              for(var country in countries){
+                if(countries.hasOwnProperty(country)){ %}
+                    <option value="{{country}}"> {{countries[country]}} </option>    
+            {%  }}; %}
+        </select>
+        <select id="cityPicker" class="selectpicker dropdown mobile col-xs-12" title='City' style="display:none;" dropupAuto="false">
+        </select>
+    </script>
+
+    <!--<script src="scripts/require/require.js"></script>-->
+
+    <!--TODO: bu referansları düzenleyelim. require.js olabilir-->
+    <script src="cordova.js"></script>
+    <script src="scripts/jquery/jquery-1.9.0.min.js"></script>
+    <script src="scripts/bootstrap/bootstrap.min.js"></script>
+    <script src="scripts/bootstrap-select/bootstrap-select.js"></script>
+    <script src="scripts/backbone/underscore.min.js"></script>
+    <script src="scripts/backbone/backbone.min.js"></script>
+    <script src="scripts/sync.js"></script>
+
+    <script type="text/javascript">
+        var app = {
+            Models: {}, Collections: {}, Views: {}, Events: {}, Globals: {}
+        };
+    </script>
+
+    <script src="scripts/model/travel.model.js"></script>
+    <script src="scripts/countries.js"></script>
+
+    <script type="text/javascript">
+        _.templateSettings = {
+            interpolate: /\{\{(.+?)\}\}/g, // print value: {{ value_name }}
+            evaluate: /\{%([\s\S]+?)%\}/g, // excute code: {% code_to_execute %}
+            escape: /\{%-([\s\S]+?)%\}/g   // excape HTML: {%- <script> %} prints &lt;script&gt;
+        };
+
+        window.template = function (id) {
+            if ($('#' + id).length == 0)
+                return;
+            return _.template($('#' + id).html());
+        };
+      
+
+       
+    </script>
+
+    <script src="scripts/view/cityPicker.js"></script>
+    <script src="scripts/view/post.js"></script>
+    <script src="scripts/init.js"></script>
+</body>
+</html>
