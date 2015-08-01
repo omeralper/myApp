@@ -18,7 +18,7 @@ namespace appServer.Models
         public string fromCountry { get; set; }
         public string toCity { get; set; }
         public string toCountry { get; set; }
-
+         
         //omer:açıklama varken bu gerekli mi bilmiyorum
         public string itemName { get; set; }
 
