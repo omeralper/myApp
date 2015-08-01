@@ -21,7 +21,7 @@ namespace appServer.Models
          
         //omer:açıklama varken bu gerekli mi bilmiyorum
         public string itemName { get; set; }
-
+          
         public ItemType itemType { get; set; }
 
         public Decimal price { get; set; }
