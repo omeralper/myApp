@@ -15,7 +15,7 @@ namespace appServer.Controllers
 {
     public class TravelsController : ApiController
     {
-        private ApplicationDbContext db = new ApplicationDbContext();
+        private MyDBContext db = new MyDBContext();
 
         // GET: api/Travels
         public IQueryable<Travel> GetTravels()

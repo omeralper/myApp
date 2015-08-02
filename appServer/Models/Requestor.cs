@@ -10,9 +10,9 @@ namespace appServer.Models
     public class Requestor
     {
         public int id { get; set; }
-        [ForeignKey("owner")]
-        public string ownerId { get; set; }
-        public virtual ApplicationUser owner { get; set; }
+        //[ForeignKey("owner")]
+        //public string ownerId { get; set; }
+        //public virtual ApplicationUser owner { get; set; }
         //omer:internetten hızlıca bulduğum elimdeki data'larda bunlar string. ondan böyle
         public string fromCity { get; set; }
         public string fromCountry { get; set; }
