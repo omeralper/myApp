@@ -18,7 +18,7 @@ namespace appServer.Controllers
         private MyDBContext db = new MyDBContext();
 
         // GET: api/Travels
-        public IQueryable<Travel> GetTravels()
+        public IQueryable<Travel> GetTravels(Travel travelFilter)
         {
             return db.Travels;
         }

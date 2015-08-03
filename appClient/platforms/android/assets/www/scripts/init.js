@@ -13,7 +13,7 @@
                 this.currentViews[i].remove();
         },
         initialize: function () {
-            new app.Views.PostView();
+            new app.Views.TabListView();
             //new app.Views.UserView();
         },
         routes: {
