@@ -10,13 +10,12 @@
 </head>
 <body>
     <div class="page-header">
-        <h1>Example page header 
+        <h1>
+            Example page header
         </h1>
     </div>
     <div id="main-container">
-
     </div>
-
     <script id="tabListTemplate" type="text/template">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
@@ -38,93 +37,87 @@
         </div>
     </script>
     <script id="travelTemplate" type="text/template">
-            <div class="form-group">
-                <input type="text" class="form-control" id="fromCountry" placeholder="From Country">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="fromCity" placeholder="From City">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="toCountry" placeholder="To Country">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="toCity" placeholder="To City">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="availableWeight" placeholder="Available Weight">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="availableVolume" placeholder="Available Volume">
-            </div>
-            <div class="form-group input-group" id="unified-inputs">
-                <input id="startDate" placeholder="Date Interval" type="date" class="form-control" />
-                <input id="finishDate" placeholder="Date Interval" type="date" class="form-control" />
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="price" placeholder="Minimum Price">
-            </div>
-            <div class="form-group">
-                <input type="text" class="form-control" id="explanation" placeholder="Explanation">
-            </div>
-            <button id="travelSubmit" type="submit" class="btn btn-default">Submit</button>
+        <div class="form-group">
+            <input type="text" class="form-control" id="fromCountry" placeholder="From Country">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="fromCity" placeholder="From City">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="toCountry" placeholder="To Country">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="toCity" placeholder="To City">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="availableWeight" placeholder="Available Weight">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="availableVolume" placeholder="Available Volume">
+        </div>
+        <div class="form-group input-group" id="unified-inputs">
+            <input id="startDate" placeholder="Date Interval" type="date" class="form-control" />
+            <input id="finishDate" placeholder="Date Interval" type="date" class="form-control" />
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="price" placeholder="Minimum Price">
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" id="explanation" placeholder="Explanation">
+        </div>
+        <button id="travelSubmit" type="submit" class="btn btn-default">Submit</button>
     </script>
     <script id="travelListTemplate" type="text/template">
         <div class="input-group">
             <span class="input-group-addon">Filter</span>
-            <input id="filter" type="text" class="form-control" placeholder="Type here...">
+            <input id="filterTravel" type="text" class="form-control" placeholder="Type here...">
         </div>
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Default</th>
-                    <th>Status</th>
+                    <th>From</th>
+                    <th>To</th>
+                    <th>Item</th>
+                    <th>Price</th>
                 </tr>
             </thead>
-            <tbody class="searchable">
-                <tr>
-                    <td>EUR</td>
-                    <td>EURO</td>
-                    <td></td>
-                    <td>Active</td>
-                </tr>
-                <tr>
-                    <td>GBP</td>
-                    <td>Pound</td>
-                    <td></td>
-                    <td>Active</td>
-                </tr>
-                <tr>
-                    <td>GEL</td>
-                    <td>Georgian Lari</td>
-                    <td>
-                        <span class="glyphicon glyphicon-ok"></span>
-                    </td>
-                    <td>Active</td>
-                </tr>
-                <tr>
-                    <td>USD</td>
-                    <td>US Dollar</td>
-                    <td></td>
-                    <td>Active</td>
-                </tr>
-            </tbody>
+            <tbody id="travelTable"></tbody>
         </table>
+    </script>
+    <script id="travelListTableTemplate" type="text/template">
+
+        {%
+        values.each(function(val){  %}
+        <tr>
+            <td>
+                {{val.get('fromCity')}}
+            </td>
+            <td>
+                {{val.get('toCity')}}
+            </td>
+            <td>
+                {{val.get('explanation')}}
+            </td>
+            <td>
+                {{val.get('price')}}
+            </td>
+        </tr>
+        {% })
+        %}
 
     </script>
 
     <script id="requestorTemplate" type="text/template">
-            <div class="form-group">
-                <label for="from">something</label>
-                <input type="text" class="form-control col-xs-12" id="something" placeholder="something">
+        <div class="form-group">
+            <label for="from">something</label>
+            <input type="text" class="form-control col-xs-12" id="something" placeholder="something">
+        </div>
+        <div class="form-group">
+            <label for="iliveat">I live at</label>
+            <div id="iliveat">
             </div>
-            <div class="form-group">
-                <label for="iliveat">I live at</label>
-                <div id="iliveat">
-                </div>
-            </div>
-            <button id="requestSubmit" type="submit" class="btn btn-default">Submit</button>
+        </div>
+        <button id="requestSubmit" type="submit" class="btn btn-default">Submit</button>
     </script>
     <script id="cityPickerTemplate" type="text/template">
         <select id="countryPicker" class="selectpicker dropdown mobile col-xs-12" title='Country' dropupAuto="false">
@@ -147,7 +140,6 @@
     <script src="scripts/backbone/underscore.min.js"></script>
     <script src="scripts/backbone/backbone.min.js"></script>
     <script src="scripts/sync.js"></script>
-
     <script type="text/javascript">
         var app = {
             Models: {}, Collections: {}, Views: {}, Events: {}, Globals: {}
@@ -157,7 +149,7 @@
     <script src="scripts/model/travel.model.js"></script>
     <script src="scripts/model/request.model.js"></script>
     <script src="scripts/countries.js"></script>
-        
+
     <script type="text/javascript">
         _.templateSettings = {
             interpolate: /\{\{(.+?)\}\}/g, // print value: {{ value_name }}
@@ -180,6 +172,8 @@
     <script src="scripts/view/travel.view.js"></script>
     <script src="scripts/view/travelList.view.js"></script>
     <script src="scripts/view/tabList.view.js"></script>
+
+
     <script src="scripts/init.js"></script>
 </body>
 </html>

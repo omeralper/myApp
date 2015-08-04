@@ -41,12 +41,6 @@
             this.travelListView = travelListView;
             this.subViews.push(travelListView);
         },
-        changed: function (evt) {
-            var changed = evt.currentTarget;
-            var value = $(evt.currentTarget).val();
-            var obj = {};
-            obj[changed.id] = value;
-        },
         onTravelSubmit: function () {
           
             var travelModel = new app.Models.TravelModel();

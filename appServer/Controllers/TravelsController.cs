@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 using appServer.Models;
+using System.Collections.Specialized;
+using System.Web;
 
 namespace appServer.Controllers
 {
@@ -18,9 +20,18 @@ namespace appServer.Controllers
         private MyDBContext db = new MyDBContext();
 
         // GET: api/Travels
-        public IQueryable<Travel> GetTravels(Travel travelFilter)
+        /// <summary>
+        /// Bu methoda parametre geliyor aslında. Query string'ten parametre geliyor. Eğer query çok uzun olursa (max 2000 char) bu methodu get değil post yapmamız gerek. 
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<Travel> GetTravels()
         {
-            return db.Travels;
+            NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
+            string wildCard = nvc["filterTravel"] == null ? "" : nvc["filterTravel"].ToString();
+            //TODO- burada conditional linq nasıl yazılıyor bilmiyorum. if/else kullanmadan, olmayan query parametrelerini linq'e dahil etmeyelim
+            IQueryable<Travel> results = db.Travels.Where( t => t.explanation.Contains(wildCard));
+
+            return results;
         }
 
         // GET: api/Travels/5

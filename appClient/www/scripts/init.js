@@ -71,6 +71,8 @@
 
         app.RouterInstance = new app.Router;
         Backbone.history.start({ pushState: true });
+
+        
     }
 
     function onPause() {

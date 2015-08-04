@@ -5,8 +5,8 @@
         attributes: { role: 'tabpanel' },
         template: template('travelTemplate'),
         events: {
-            'change input': 'changed',
-            'change select': 'changed',
+            'change input': 'change',
+            'change select': 'change',
             'click #travelSubmit ': 'onTravelSubmit'
         },
         subViews: [],
@@ -32,7 +32,7 @@
             this.model.set('finishDate', nextWeek);
             return this;
         },
-        changed: function (evt) {
+        change: function (evt) {
             var changed = evt.currentTarget;
             var value = $(evt.currentTarget).val();
             this.model.set(changed.id, value);

@@ -5,8 +5,8 @@
         attributes: { role: 'tabpanel' },
         template: template('requestorTemplate'),
         events: {
-            'change input': 'changed',
-            'change select': 'changed',
+            'change input': 'change',
+            'change select': 'change',
             'click #requestSubmit ': 'onRequestSubmit'
         },
         subViews: [],
@@ -25,7 +25,7 @@
 
             return this;
         },
-        changed: function (evt) {
+        change: function (evt) {
             var changed = evt.currentTarget;
             var value = $(evt.currentTarget).val();
             this.model.set(changed.id, value);
