@@ -5,14 +5,14 @@ namespace appServer.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<appServer.Models.MyDBContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<appServer.Models.ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(appServer.Models.MyDBContext context)
+        protected override void Seed(appServer.Models.ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

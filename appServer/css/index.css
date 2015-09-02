@@ -1,0 +1,281 @@
+﻿a {
+    color: black;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+.top-bar-left {
+    text-align: left;
+}
+
+.top-bar-right {
+    text-align: right;
+}
+
+.top-bar-center {
+    font-weight:bold;
+    text-align: center;
+}
+
+
+/*.navbar-brand {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    text-align: center;
+    margin: auto;
+}
+
+.navbar-collapse.collapse {
+    display: block !important;
+}
+*/
+/*.navbar-nav > li, .navbar-nav {
+    float: left !important;
+}
+
+    .navbar-nav.navbar-right:last-child {
+        margin-right: -15px !important;
+    }
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}*/
+
+
+/*#topBarLeft {
+    padding-left: 8px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+}*/
+
+/*.navbar-right {
+    float: right !important;
+}
+
+.navbar-nav {
+    margin: 0;
+}*/
+
+/*.navbar-fixed-top {
+    min-height: 65px;
+}*/
+
+.ticket-color{
+    color: #FB5A5A;
+}
+.ticket-detail-part{
+     border-bottom: 1px solid #ECECEC; padding-bottom: 10px; padding-top: 10px;
+}
+.ticket-detail-user{
+    text-align: center; text-align: center; float: left; padding: 10px; padding-right: 20px;
+}
+.send-message{
+     width: 70%;
+    position: fixed;
+    height: 40px;
+    bottom: 60px;
+    background-color: #FF5B5B;
+    opacity: 0.9;
+    text-align: center;
+    padding: 10px;
+}
+
+.send-message a{
+    color: white;
+}
+
+.ticket-info{
+    color:#d7d7d7;
+    font-size:0.8em;
+}
+
+.status-bar {
+    position: fixed;
+    top: 55px;
+    background-color: #FBF4F4;
+    width: 100%;
+    height: 15px;
+    font-size: 12px;
+    padding-left: 15px;
+    color: #828282;
+    text-align: center;
+}
+
+.ticket-filter {
+    position: absolute;
+    width: 100%;
+    /*height: 115%;*/
+    z-index: 1046;
+    background-color: white;
+    top: 0px;
+    padding-top: 15px;
+    color: #EC6F6F;
+}
+
+.ticket-filter-icon{
+    font-size: 1.7em;
+    color: #FF6A6A;
+}
+
+.ticket-filter-button {
+    height: 50px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.filter-top-menu {
+    top:15px;
+}
+
+body {
+    color: black;
+}
+
+.main-container {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 70px;
+    margin-bottom: 65px;
+}
+
+.list-items {
+    padding: 5px 5px 0px 10px;
+}
+
+.list-item-arrow {
+    position: relative;
+    top: 15px;
+    right: -5px;
+    font-size: 1.5em;
+}
+
+.list-item-date {
+    color: #BFBFBF;
+}
+
+/*5th Column*/
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+}
+
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+/*****************************/
+/* Login */
+/*****************************/
+#login-container {
+    display: none;
+    height: 200px;
+    width: 400px;
+    background-color: white;
+}
+
+#login-list {
+    list-style-type: none;
+}
+
+    #login-list li {
+        list-style-type: none;
+    }
+
+.navigation-link {
+    display: block;
+    text-align: center;
+    font-size: 2em;
+    text-decoration: none !important;
+}
+
+    .navigation-link span {
+        font-size: 0.5em;
+        display: block;
+    }
+
+
+.navbar .navbar-nav {
+    display: inline-block;
+    float: none;
+    vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+    text-align: center;
+}
+
+.ticket-detail input {
+    width: 100%;
+}
+
+
+/*Chat*/
+.chat {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+    .chat li {
+        margin-bottom: 10px;
+        padding-bottom: 5px;
+    }
+
+.chat-time {
+    font-size: 10px;
+    text-indent: 3px;
+}
+
+.chat-box {
+    -webkit-border-radius: 53px 53px 37px 53px;
+    -moz-border-radius: 53px 53px 37px 53px;
+    border-radius: 53px 53px 37px 53px;
+    background-color: #40F2FF;
+    padding: 15px;
+}
+
+.chat-box-other-user {
+    background-color: #FFE8E8;
+}
+
+.panel-body {
+    /*overflow-y: scroll;*/
+    /*height: 500px;*/
+}

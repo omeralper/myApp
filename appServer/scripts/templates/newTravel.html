@@ -1,0 +1,65 @@
+﻿<script id="newTicketTemplate" type="text/template">
+    <table class="ticket-detail" style="margin:auto;">
+        <tr>
+            <td>
+                <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
+            </td>
+            <td></td>
+            <td>
+                <label id="firstName">{{model.get('firstName')}}</label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                From Country
+                <select class="input-large form-control countries" id="fromCountry" value="{{model.get('fromCountry')}}">
+                    {% _.each(countries, function(country,index){   %}
+                    <option value="{{index}}">{{country}}</option>
+                    {%  }); %}
+                </select>
+            </td>
+            <td></td>
+            <td>
+                to Country
+                <select class="input-large form-control countries" id="toCountry" value="{{model.get('toCountry')}}">
+                    {% _.each(countries, function(country,index){   %}
+                    <option value="{{index}}">{{country}}</option>
+                    {%  }); %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                fromCity
+                <input id="fromCity" value="{{model.get('fromCity')}}" />
+            </td>
+            <td><span class="pe-7s-plane"></span></td>
+            <td>
+                toCity
+                <input id="toCity" value="{{model.get('toCity')}}" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                startDate
+                <input id="startDate" type="text" class="form-control" value="{{new Date(model.get('startDate')).toDateString()}}">
+            </td>
+            <td></td>
+            <td>
+                availableWeight
+                <input id="availableWeight" type="number" value="{{model.get('availableWeigt')}}" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                explanation
+                <textarea class="form-control" rows="5" id="explanation">{{model.get('explanation')}}</textarea>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3">
+                <button id="submitTicket" class="btn btn-default" type="submit">Submit</button>
+            </td>
+        </tr>
+    </table>
+</script>
