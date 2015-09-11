@@ -4,7 +4,7 @@
             authServer: '',
             authServerId: ''
         },
-        url: app.Root + '/api/user'
+        url: app.SourceUrl + '/api/user'
     });
     app.Me = new app.Models.UserModel();
     

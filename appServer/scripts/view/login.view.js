@@ -28,18 +28,35 @@
         },
         facebookLogin: function () {
             var thisView = this;
-            FB.login(function (result) {
-                thisView.model.save(
-                    {
-                        authServer: 'facebook', authAccessToken: result.authResponse.accessToken
-                    },
-                    {
-                        success: thisView.tokenCallBack
-                    }
-                );
-            }, {
-                scope: 'publish_actions,email,user_friends'
-            });
+
+            if (app.isCordova) {
+                try {
+                    var ref = cordova.InAppBrowser.open('https://www.facebook.com/dialog/oauth?client_id=1462573160734571&redirect_uri=https://www.facebook.com/connect/login_success.html', '_blank', {});
+                    //alert('before facebook');
+                    //facebookConnectPlugin.login(["email"],
+                    //    function () {
+                    //        alert('success');
+                    //    },
+                    //    function () {
+                    //        alert('fail');
+                    //    });
+                } catch (e) {
+                    alert(e);
+                }
+            } else {
+                FB.login(function (result) {
+                    thisView.model.save(
+                        {
+                            authServer: 'facebook', authAccessToken: result.authResponse.accessToken
+                        },
+                        {
+                            success: thisView.tokenCallBack
+                        }
+                    );
+                }, {
+                    scope: 'publish_actions,email,user_friends'
+                });
+            }
         },
         googleLogin : function(){
             alert('not implemented yet')

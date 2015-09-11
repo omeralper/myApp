@@ -1,5 +1,6 @@
 ﻿$(function () {
     app.Views.TravelView = app.Views.MainView.extend({ // Backbone.View.extend({
+        className:'container',
         attributes: { id: 'travelView' },
         ticketDetailTemplate: template('ticketDetailTemplate'),
         events: {
@@ -26,8 +27,9 @@
             }
         },
         render: function (params) {
+            $('#container').removeClass('animated fadeInRight');
             var html = this.$el.html(this.ticketDetailTemplate({ model: this.model }));//.hide().fadeIn().slideDown();;
-            $('#container').append(html).hide().toggle("slide", { direction: 'right' });;
+            $('#container').append(html).addClass('animated fadeInRight');//.delay(1000).removeClass('fadeInRight');//.hide().toggle("slide", { direction: 'right' });;
 
             this.$('#startDate').datepicker({
                 autoclose: true,

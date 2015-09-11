@@ -1,7 +1,7 @@
 ﻿$(function () {
 
     app.Models.TravelModel = Backbone.Model.extend({
-        urlRoot: app.Root + '/api/travels',
+        urlRoot: app.SourceUrl + '/api/travels',
         save: function (attrs, options) {
             this.set('photo', '');
             this.set('firstName', '');
@@ -11,11 +11,11 @@
     });
 
     app.Models.TravelFilterModel = Backbone.Model.extend({
-        urlRoot: app.Root + '/api/travels' 
+        urlRoot: app.SourceUrl + '/api/travels'
     });
 
     app.Collections.TravelCollection = Backbone.Collection.extend({
         model: app.Models.TravelModel,
-        url: app.Root + '/api/travels'
+        url: app.SourceUrl + '/api/travels'
     });
 });

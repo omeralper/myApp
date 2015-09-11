@@ -16,6 +16,7 @@ using Microsoft.AspNet.Identity;
 
 namespace appServer.Controllers
 {
+    [Authorize]
     public class ConversationsController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();

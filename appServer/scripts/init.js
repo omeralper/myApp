@@ -54,6 +54,7 @@
                 options.fragment = fragment;
                 this.activeViews.push(new view(options));
             }
+            app.Events.trigger('newPageRendered', this.activeViews[this.activeViews.length - 1]);
         },
         home: function (userId) {
             this.changePage(app.Views.TravelsView, {});
@@ -122,7 +123,7 @@
         }
     });
 
-    if (app.isMobile) {
+    if (app.isCordova) {
         document.addEventListener('deviceready', onDeviceReady, false);
 
         function onDeviceReady() {
@@ -130,21 +131,9 @@
             document.addEventListener('resume', onResume.bind(this), false);
 
             app.RouterInstance = new app.Router;
-            Backbone.history.start({ pushState: true });
-
-            //try {
-            //    facebookConnectPlugin.login(["email"],
-            //        function () {
-            //            alert('success');
-            //        },
-            //        function () {
-            //            alert('fail');
-            //        });
-            //} catch (e) {
-            //    alert(e);
-            //}
-
-         
+            Backbone.history.start({ pushState: true, hashChange: false });
+            facebookInit();
+          
         }
 
         function onPause() {
@@ -156,10 +145,18 @@
         }
     } else {
         facebookInit();
+       // vkInit();
         app.RouterInstance = new app.Router;
         Backbone.history.start({ pushState: true, hashChange: false });
         Backbone.history.on('route', function () {
             // Do your stuff here
+        });
+    }
+
+    function vkInit() {
+        VK.init(function () {
+            // API initialization succeeded 
+            // Your code here 
         });
     }
 
@@ -176,7 +173,7 @@
             var js, fjs = d.getElementsByTagName(s)[0];
             if (d.getElementById(id)) { return; }
             js = d.createElement(s); js.id = id;
-            js.src =  app.Root + "/scripts/facebook/sdk.js"; // "//connect.facebook.net/en_US/sdk.js";
+            js.src = "scripts/facebook/sdk.js"; // "//connect.facebook.net/en_US/sdk.js";
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     }

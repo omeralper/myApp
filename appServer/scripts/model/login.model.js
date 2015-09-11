@@ -4,6 +4,6 @@
             authServer: '',
             authAccessToken: ''
         },
-        url: app.Root + '/api/account'
+        url: app.SourceUrl + '/api/account'
     });
 });

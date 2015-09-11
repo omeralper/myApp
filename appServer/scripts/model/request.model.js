@@ -1,6 +1,6 @@
 ﻿$(function () {
     app.Models.RequestModel = Backbone.Model.extend({
-        urlRoot: app.Root + '/api/requests',
+        urlRoot: app.SourceUrl + '/api/requests',
         save: function (attrs, options) {
             this.set('photo', '');
             this.set('firstName', '');
@@ -10,11 +10,11 @@
     });
 
     app.Models.RequestFilterModel = Backbone.Model.extend({
-        urlRoot: app.Root + '/api/requests'
+        urlRoot: app.SourceUrl + '/api/requests'
     });
 
     app.Collections.RequestCollection = Backbone.Collection.extend({
         model: app.Models.RequestModel,
-        url: app.Root + '/api/requests'
+        url: app.SourceUrl + '/api/requests'
     });
 });
