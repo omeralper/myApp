@@ -1,44 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Newtonsoft.Json;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Web;
 
 namespace appServer.Models
 {
     public class Travel
     {
         public int id { get; set; }
-        //[ForeignKey("owner")]
-        //public string ownerId { get; set; }
-        //public virtual ApplicationUser owner { get; set; }//test
+        [Required]
+        [ForeignKey("owner")]
+        public string ownerId { get; set; }
+        public virtual ApplicationUser owner { get; set; }
 
-        //omer:internetten hızlıca bulduğum elimdeki data'larda bunlar string. ondan böyle
+        
+        [ForeignKey("fromCity")]
+        public int? fromCityId { get; set; }
+        public virtual City fromCity { get; set; }
+
         [Required]
-        public string fromCity { get; set; }
+        [ForeignKey("fromCountry")]
+        public int fromCountryId { get; set; }
+        public virtual Country fromCountry { get; set; }
+
+        [ForeignKey("toCity")]
+        public int? toCityId { get; set; }
+        public virtual City toCity { get; set; }
+
         [Required]
-        public string fromCountry { get; set; }
-        [Required]
-        public string toCity { get; set; }
-        [Required]
-        public string toCountry { get; set; }
+        [ForeignKey("toCountry")]
+        public int toCountryId { get; set; }
+        public virtual Country toCountry { get; set; }
+
+
         public decimal? availableWeight { get; set; }
         public decimal? availableVolume { get; set; }
-        //omer:kesin olmayan tarihler olur diye aralık verdim.
+        
         [Required]
         public DateTime startDate { get; set; }
-        [Required]
-        public DateTime finishDate { get; set; }
+        public DateTime? finishDate { get; set; }
 
-        //omer:belki böyle bişey ihtiyaç olur
         public ItemType? itemType { get; set; }
-
-        //omer:belki taşıyıcı, taşımak isteyeceği ürünler için min fiyat vermek ister.
         public Decimal? price { get; set; }
-
-
         public string explanation { get; set; }
     }
 
-    
+    public class TravelDTO
+    {
+        public int id { get; set; }
+        public string ownerId { get; set; }
+        public string UserName { get; set; }
+        public string firstName { get; set; }
+        public byte[] photo { get; set; }
+        public City fromCity { get; set; }
+        public Country fromCountry { get; set; }
+        public City toCity { get; set; }
+        public Country toCountry { get; set; }
+        public decimal? availableWeight { get; set; }
+        public decimal? availableVolume { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime? finishDate { get; set; }
+        public ItemType? itemType { get; set; }
+        public Decimal? price { get; set; }
+        public string explanation { get; set; }
+    }
+
+    public class NewTravelDto
+    {
+        public string ownerId { get; set; }
+        public string UserName { get; set; }
+        public string firstName { get; set; }
+        public byte[] photo { get; set; }
+        public int? fromCity { get; set; }
+        public int fromCountry { get; set; }
+        public int? toCity { get; set; }
+        public int toCountry { get; set; }
+        public decimal? availableWeight { get; set; }
+        public decimal? availableVolume { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime? finishDate { get; set; }
+        public ItemType? itemType { get; set; }
+        public Decimal? price { get; set; }
+        public string explanation { get; set; }
+    }
 }

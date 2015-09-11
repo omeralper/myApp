@@ -1,154 +1,537 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <title>bringme</title>
-    <link href="css/index.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>MYApp</title>
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/Pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="css/glyphicons-halflings-regular.css" rel="stylesheet" />
+    <link href="css/social-buttons.css" rel="stylesheet" />
     <link href="css/bootstrap.css" rel="stylesheet" />
-    <link href="css/bootstrap-select/bootstrap-select.css" rel="stylesheet" />
-    <link href="css/custom.css" rel="stylesheet" />
+    <link href="css/bootstrap-theme.css" rel="stylesheet" />
+    <link href="css/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="css/index.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="page-header">
-        <h1>
-            Example page header
-        </h1>
-    </div>
-    <div id="main-container">
-    </div>
-    <script id="tabListTemplate" type="text/template">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active col-xs-3 no-padding">
-                <a href="#travel" aria-controls="travel" role="tab" data-toggle="tab">I travel</a>
-            </li>
-            <li role="presentation" class="col-xs-3 no-padding">
-                <a href="#need" aria-controls="need" role="tab" data-toggle="tab">I need</a>
-            </li>
-            <li role="presentation" class="col-xs-3 no-padding">
-                <a href="#travelList" aria-controls="travelList" role="tab" data-toggle="tab">Travel List </a>
-            </li>
-            <li role="presentation" class="col-xs-3 no-padding">
-                <a href="#needList" aria-controls="needList" role="tab" data-toggle="tab">Tab4</a>
+    <div id="topBar" class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div id="topBarLeft" class="nav navbar-nav navbar-left" style="padding:8px;position: absolute; z-index: 1;">
+        </div>
+        <div id="topBarCenter" class="navbar-brand navbar-nav">
+
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+            <li>
+                <a href="#" style="padding:0px 5px 0px 10px;">
+                    <img id="userImage" alt="Brand">
+                </a>
             </li>
         </ul>
-        <!-- Tab panes -->
-        <div id="tab" class="tab-content">
+    </div>
+    <div id="container" class="container-fluid" style="padding-right:0; padding-left:0;">
+    </div>
+    <nav id="bottomBar" class="navbar navbar-default navbar-fixed-bottom">
+        <div class="row">
+            <div class="col-xs-5ths"><a href="/Travels" class=" pe-7s-plane navigation-link"><span>Travel</span></a></div>
+            <div class="col-xs-5ths"><a href="/Requests" class="pe-7s-gift navigation-link"><span>Request</span></a></div>
+            <div class="col-xs-5ths"><a href="/Conversations" class="pe-7s-mail-open-file navigation-link"><span>Message</span></a></div>
+            <div class="col-xs-5ths"><a href="/CreateNew" class="pe-7s-plus navigation-link"><span>New</span></a></div>
+            <div class="col-xs-5ths"><a href="/Me" class="pe-7s-smile navigation-link"><span>Me</span></a></div>
         </div>
-    </script>
-    <script id="travelTemplate" type="text/template">
-        <div class="form-group">
-            <input type="text" class="form-control" id="fromCountry" placeholder="From Country">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="fromCity" placeholder="From City">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="toCountry" placeholder="To Country">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="toCity" placeholder="To City">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="availableWeight" placeholder="Available Weight">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="availableVolume" placeholder="Available Volume">
-        </div>
-        <div class="form-group input-group" id="unified-inputs">
-            <input id="startDate" placeholder="Date Interval" type="date" class="form-control" />
-            <input id="finishDate" placeholder="Date Interval" type="date" class="form-control" />
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="price" placeholder="Minimum Price">
-        </div>
-        <div class="form-group">
-            <input type="text" class="form-control" id="explanation" placeholder="Explanation">
-        </div>
-        <button id="travelSubmit" type="submit" class="btn btn-default">Submit</button>
-    </script>
-    <script id="travelListTemplate" type="text/template">
-        <div class="input-group">
-            <span class="input-group-addon">Filter</span>
-            <input id="filterTravel" type="text" class="form-control" placeholder="Type here...">
-        </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>From</th>
-                    <th>To</th>
-                    <th>Item</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody id="travelTable"></tbody>
-        </table>
-    </script>
-    <script id="travelListTableTemplate" type="text/template">
+    </nav>
 
-        {%
-        values.each(function(val){  %}
-        <tr>
-            <td>
-                {{val.get('fromCity')}}
-            </td>
-            <td>
-                {{val.get('toCity')}}
-            </td>
-            <td>
-                {{val.get('explanation')}}
-            </td>
-            <td>
-                {{val.get('price')}}
-            </td>
-        </tr>
-        {% })
-        %}
-
+    <script id="loginTemplate" type="text/template">
+        <ul id="login-list">
+            <li>
+                <a href="#" id="facebookLogin" class="btn btn-facebook">
+                    <i class="fa fa-facebook"></i>  | Connect with Facebook
+                </a>
+            </li>
+            <li>
+                <a href="#" id="googleLogin" class="btn btn-google-plus">
+                    <i class="fa fa-google"></i>  | Connect with Google
+                </a>
+            </li>
+            <li>
+                <a href="#" id="twitterLogin" class="btn btn-twitter">
+                    <i class="fa fa-twitter"></i>  | Connect with Twitter
+                </a>
+            </li>
+            <li>
+                <a href="#" id="vkLogin" class="btn btn-vk">
+                    <i class="fa fa-vk"></i>  | Connect with VK
+                </a>
+            </li>
+        </ul>
     </script>
-
-    <script id="requestorTemplate" type="text/template">
-        <div class="form-group">
-            <label for="from">something</label>
-            <input type="text" class="form-control col-xs-12" id="something" placeholder="something">
-        </div>
-        <div class="form-group">
-            <label for="iliveat">I live at</label>
-            <div id="iliveat">
+    <script id="ticketTemplate" type="text/template">
+        <li class="list-group-item">
+            <a id="ticket" href="/Travel/{{model.get('id')}}" data-ticketid="{{model.get('id')}}" data-bypass>
+                <table style="margin:auto;">
+                    <tr>
+                        <td>
+                            {{model.get('fromCountry').name}},
+                            {{model.has('fromCity') ? model.get('fromCity').name : ''}}
+                        </td>
+                        <td><span class="pe-7s-plane"></span></td>
+                        <td>
+                            {{model.get('toCountry').name}},
+                            {{model.has('toCity') ? model.get('toCity').name : ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{new Date(model.get('startDate')).toDateString()}}
+                        </td>
+                        <td></td>
+                        <td>
+                            {{model.get('availableWeight')}}
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </li>
+    </script>
+    <script id="backViewTemplate" type="text/template">
+        <a id="backViewLink" href="{{backViewLink}}">
+            <span class="fa fa-angle-left" style="font-size:2.5em;"></span>
+            <span id="backViewName" style="position:relative; bottom:5px;">{{backViewName}} </span>
+        </a>
+    </script>
+    <script id="newTicketTemplate" type="text/template">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
+                </div>
+                <div class="col-xs-6">
+                    <label id="firstName">{{model.get('firstName')}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    From Country
+                    <select class="input-large form-control" id="fromCountry" value="{{model.get('fromCountry')}}">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    From City
+                    <select id="fromCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            @*<div class="row">
+                <span class="pe-7s-plane"></span>
+            </div>*@
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    To Country
+                    <select class="input-large form-control countries" id="toCountry" value="{{model.get('toCountry')}}">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    To City
+                    <select id="toCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    Date
+                    <input id="startDate" type="text" class="form-control" value="{{new Date(model.get('startDate')).toDateString()}}">
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    Available Weight
+                    <input id="availableWeight" min="1" type="number" class="form-control" value="{{model.get('availableWeigt')}}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 ">
+                    Explanation
+                    <textarea class="form-control" rows="5" id="explanation">{{model.get('explanation')}}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <button id="submitTicket" class="btn btn-default" type="submit">Submit</button>
+                </div>
             </div>
         </div>
-        <button id="requestSubmit" type="submit" class="btn btn-default">Submit</button>
-    </script>
-    <script id="cityPickerTemplate" type="text/template">
-        <select id="countryPicker" class="selectpicker dropdown mobile col-xs-12" title='Country' dropupAuto="false">
-            <!--TODO: burada başka bir template kütüphanesi kullanalım, mustache falan-->
-            {%
-            for(var country in countries){
-            if(countries.hasOwnProperty(country)){ %}
-            <option value="{{country}}"> {{countries[country]}} </option>
-            {%  }}; %}
-        </select>
-        <select id="cityPicker" class="selectpicker dropdown mobile col-xs-12" title='City' style="display:none;" dropupAuto="false"></select>
     </script>
 
-    <!--<script src="scripts/require/require.js"></script>-->
-    <!--TODO: bu referansları düzenleyelim. require.js olabilir-->
-    <script src="cordova.js"></script>
-    <script src="scripts/jquery/jquery-1.9.0.min.js"></script>
-    <script src="scripts/bootstrap/bootstrap.min.js"></script>
-    <script src="scripts/bootstrap-select/bootstrap-select.js"></script>
-    <script src="scripts/backbone/underscore.min.js"></script>
-    <script src="scripts/backbone/backbone.min.js"></script>
-    <script src="scripts/sync.js"></script>
+    <script id="ticketDetailTemplate" type="text/template">
+        <table class="ticket-detail" style="margin:auto;">
+            <tr>
+                <td>
+                    <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
+                </td>
+                <td></td>
+                <td>
+                    <label id="firstName">{{model.get('firstName')}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{model.get('fromCountry').name}}
+                </td>
+                <td></td>
+                <td>
+                    {{model.get('toCountry').name}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{model.has('fromCity') ? model.get('fromCity').name : ''}}
+                </td>
+                <td><span class="pe-7s-plane"></span></td>
+                <td>
+                    {{model.has('toCity') ? model.get('toCity').name : ''}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                    {{new Date(model.get('startDate')).toDateString()}}
+
+                </td>
+                <td></td>
+                <td>
+
+                    {{model.get('availableWeight')}}
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+
+                    {{model.get('explanation')}}
+
+                </td>
+            </tr>
+        </table>
+    </script>
+
+    <script id="travelsTemplate" type="text/template">
+        <div class="row">
+            <div class="col-xs-9">
+                <input id="filterTravel" type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="col-xs-1">
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-filter"></i> Filter
+                </button>
+            </div>
+        </div>
+        <ul id="travelsItems" class="list-group"></ul>
+    </script>
+
+    <script id="requestsTemplate" type="text/template">
+        <div class="row">
+            <div class="col-xs-9">
+                <input id="filterRequest" type="text" class="form-control" placeholder="Search">
+            </div>
+            <div class="col-xs-1">
+                <button type="submit" class="btn btn-primary">
+                    <i class="glyphicon glyphicon-filter"></i> Filter
+                </button>
+            </div>
+        </div>
+        <ul id="listOfRequests" class="list-group"></ul>
+    </script>
+
+    <script id="requestTemplate" type="text/template">
+        <li class="list-group-item">
+            <a id="request" href="/Request/{{model.get('id')}}" data-requestid="{{model.get('id')}}" data-bypass>
+                <table style="margin:auto;">
+                    <tr>
+                        <td>
+                            {{model.get('fromCountry').name}},
+                            {{model.has('fromCity') ? model.get('fromCity').name : ''}}
+                        </td>
+                        <td><span class="pe-7s-gift"></span></td>
+                        <td>
+                            {{model.get('toCountry').name}},
+                            {{model.has('toCity') ? model.get('toCity').name : ''}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            {{model.get('price')}}
+                        </td>
+                        <td>{{model.get('currency')}}</td>
+                        <td>
+                            {{model.get('estimatedWeight')}}
+                        </td>
+                    </tr>
+
+                </table>
+            </a>
+        </li>
+    </script>
+    <script id="requestDetailTemplate" type="text/template">
+        <table class="request-detail" style="margin:auto;">
+            <tr>
+                <td>
+                    <img id="requestPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
+                </td>
+                <td></td>
+                <td>
+                    <label id="firstName">{{model.get('firstName')}}</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{model.get('fromCountry').name}}
+                </td>
+                <td></td>
+                <td>
+                    {{model.get('toCountry').name}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{model.has('fromCity') ? model.get('fromCity').name : ''}}
+                </td>
+                <td><span class="pe-7s-plane"></span></td>
+                <td>
+                    {{model.has('toCity') ? model.get('toCity').name : ''}}
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    {{model.get('estimatedWeight')}}
+
+                </td>
+                <td></td>
+                <td>
+                    {{model.get('price')}}
+                    {{model.get('currency')}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    {{model.get('explanation')}}
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">
+                    <a href="Conversation?toUserId={{model.get('ownerId')}}&requestId={{model.get('id')}}" class="btn btn-default">Send Message</a>
+                </td>
+            </tr>
+        </table>
+    </script>
+
+    <script id="newRequestTemplate" type="text/template">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-6">
+                    <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
+                </div>
+                <div class="col-xs-6">
+                    <label id="firstName">{{model.get('firstName')}}</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <input id="title" class="input-large form-control" placeholder="Title" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    From Country
+                    <select class="input-large form-control" id="fromCountry" value="{{model.get('fromCountry')}}">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    From City
+                    <select id="fromCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            @*<div class="row">
+                <span class="pe-7s-plane"></span>
+            </div>*@
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    To Country
+                    <select class="input-large form-control countries" id="toCountry" value="{{model.get('toCountry')}}">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    To City
+                    <select id="toCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    Date
+                    <input id="startDate" type="text" class="form-control" value="{{new Date(model.get('startDate')).toDateString()}}">
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    Estimated Weight
+                    <input id="estimatedWeight" min="1" type="number" class="form-control" value="{{model.get('estimatedWeight')}}" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-6">
+                    Price
+                    <input id="price" min="1" type="number" class="form-control" value="{{model.get('price')}}" />
+                </div>
+                <div class="col-xs-6">
+                    Currency
+                    <select id="currency" class="input-large form-control">
+                        <option value="1">EUR</option>
+                        <option value="2">TRY</option>
+                        <option value="3">USD</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Explanation
+                    <textarea class="form-control" rows="5" id="explanation">{{model.get('explanation')}}</textarea>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 ">
+                    <button id="submitTicket" class="btn btn-default" type="submit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <script id="conversationTemplate" type="text/template">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-offset-3 col-md-6 col-xs-12 " style="padding:0;">
+                    <div id="scroller" class="panel">
+                        @*<div class="panel-body">
+                            *@
+                            <ul class="chat">
+                                {% var messages = model.get('messages');
+                                _.each(messages, function(message){
+                                if(message.my){ %}
+                                <li class="right clearfix">
+                                    <div class="chat-box pull-right">
+                                        {{message.messageBody}}
+                                        <div class="chat-time pull-right">
+                                            <span class="glyphicon glyphicon-time ">
+                                            </span>
+                                            {{new Date(message.date).getHours()}}:{{new Date(message.date).getMinutes()}}
+                                        </div>
+                                    </div>
+                                    <small class="pull-left text-muted">
+
+                                    </small>
+                                </li>
+                                {% }else { %}
+                                <li class="left clearfix">
+                                    <div class="chat-box chat-box-other-user pull-left">
+                                        {{message.messageBody}}
+                                        <div class="chat-time pull-right">
+                                            <span class="glyphicon glyphicon-time ">
+                                            </span>
+                                            {{new Date(message.date).getHours()}}:{{new Date(message.date).getMinutes()}}
+                                        </div>
+                                    </div>
+                                    <small class="pull-right text-muted">
+
+                                    </small>
+                                </li>
+                                {% } }); %}
+                            </ul>
+                            @*
+                        </div>*@
+                        <div class="panel-footer">
+                            <div class="input-group">
+                                <input id="messageArea" type="text" class="form-control input-sm" placeholder="Type your message here...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-warning btn-sm" id="sendMessage">
+                                        Send
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </script>
+    <script id="conversationBannerTemplate" type="text/template">
+        {{userName}}
+        <img src="data:image/png;base64,{{photo}}" alt="{{userName}}" class="img-circle">
+    </script>
+    <script id="conversationsTemplate" type="text/template">
+
+        <div class="row">
+            <div class="col-xs-12">
+                <input class="input-lg form-control" placeholder="Search" />
+            </div>
+        </div>
+
+        <div class="row">
+            <table>
+                {% collection.each(function(conversation){ %}
+                <tr>
+                    <td>
+                        <a href="/Conversation?id={{conversation.get('id')}}">
+                            <img src="data:image/png;base64,{{conversation.get('lastMessage').ownerPhoto}}" />
+                        </a>
+                    </td>
+                    <td><a href="/Conversation?id={{conversation.get('id')}}">{{conversation.get('lastMessage').ownerName}} </a></td>
+                    <td><a href="/Conversation?id={{conversation.get('id')}}">{{conversation.get('lastMessage').messageBody}} </a></td>
+                    <td><a href="/Conversation?id={{conversation.get('id')}}">{{conversation.get('lastMessage').date}} </a></td>
+                </tr>
+                {%  }); %}
+            </table>
+        </div>
+    </script>
+    <script id="createNewTemplate" type="text/template">
+        <a class="btn btn-default" href="/NewTravel">Create New Travel</a>
+        <a class="btn btn-default" href="/NewRequest">Create New Request</a>
+    </script>
+
+    <!-- Javascript references -->
     <script type="text/javascript">
         var app = {
             Models: {}, Collections: {}, Views: {}, Events: {}, Globals: {}
         };
+
+        app.isMobile = document.location.protocol == 'file';
+        app.Root = 'https://192.168.1.29:447'; //app.isMobile ? 'http://localhost/appServer' : '';
+
     </script>
+
+    <script src="scripts/jquery/jquery-1.11.3.min.js"></script>
+    <script src="scripts/jquery/jquery.bpopup.min.js"></script>
+    <script src="scripts/jquery/jquery-ui.min.js"></script>
+
+    <script src="scripts/bootstrap/bootstrap.js"></script>
+    <script src="scripts/bootstrap/bootstrap-datepicker.min.js"></script>
+    <script src="cordova.js"></script>
+    <script src="scripts/backbone/underscore.min.js"></script>
+    <script src="scripts/backbone/backbone.min.js"></script>
+    <script src="scripts/sync.js"></script>
+    <script src="scripts/signalR/jquery.signalR-2.2.0.min.js"></script>
+    <script src="scripts/signalR/hubs.js"></script>
 
     <script src="scripts/model/travel.model.js"></script>
     <script src="scripts/model/request.model.js"></script>
-    <script src="scripts/countries.js"></script>
+    <script src="scripts/model/user.model.js"></script>
+    <script src="scripts/model/login.model.js"></script>
+    <script src="scripts/model/city.model.js"></script>
+    <script src="scripts/model/message.model.js"></script>
+
+    <script src="scripts/resource/countries.js"></script>
 
     <script type="text/javascript">
         _.templateSettings = {
@@ -163,17 +546,22 @@
             return _.template($('#' + id).html());
         };
 
-
-
     </script>
 
-    <script src="scripts/view/cityPicker.js"></script>
-    <script src="scripts/view/requestor.view.js"></script>
+
+
+    <script src="scripts/view/main.view.js"></script>
+    <script src="scripts/view/topBar.view.js"></script>
+    <script src="scripts/view/login.view.js"></script>
+    <script src="scripts/view/request.view.js"></script>
+    <script src="scripts/view/requests.view.js"></script>
+    <script src="scripts/view/newRequest.view.js"></script>
     <script src="scripts/view/travel.view.js"></script>
-    <script src="scripts/view/travelList.view.js"></script>
-    <script src="scripts/view/tabList.view.js"></script>
-
-
+    <script src="scripts/view/travels.view.js"></script>
+    <script src="scripts/view/newTravel.view.js"></script>
+    <script src="scripts/view/conversation.view.js"></script>
+    <script src="scripts/view/conversations.view.js"></script>
+    <script src="scripts/view/createNew.view.js"></script>
     <script src="scripts/init.js"></script>
 </body>
 </html>

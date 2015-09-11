@@ -21,4 +21,12 @@
     <vs:features />
     <preference name="SplashScreen" value="screen" />
     <preference name="windows-target-version" value="8.1" />
+    <preference name="KeepRunning" value="False" />
+    <preference name="ShowTitle" value="True" />
+    <preference name="InAppBrowserStorageEnabled" value="False" />
+    <preference name="SuppressesIncrementalRendering" value="True" />
+    <vs:plugin name="com.phonegap.plugins.facebookconnect" src="C:\Users\ÖmerAlper\Desktop\phonegap-facebook-plugin-master" version="0.11.0">
+        <param name="APP_ID" value="1462573160734571" />
+        <param name="APP_NAME" value="feysbukApp" />
+    </vs:plugin>
 </widget>
