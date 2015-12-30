@@ -31,6 +31,7 @@
 
             if (app.isCordova) {
                 try {
+                    debugger;
                     var ref = cordova.InAppBrowser.open('https://www.facebook.com/dialog/oauth?client_id=1462573160734571&redirect_uri=https://www.facebook.com/connect/login_success.html', '_blank', {});
                     //alert('before facebook');
                     //facebookConnectPlugin.login(["email"],
