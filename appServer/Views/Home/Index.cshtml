@@ -134,7 +134,11 @@
     </script>
 
     <script id="ticketsTopBar" type="text/template">
-        <span class="pe-7s-filter ticket-filter-icon"  id="openTicketFilter"></span>
+        <span class="pe-7s-filter ticket-filter-icon ticket-color"  id="openTicketFilter"></span>
+    </script>
+
+    <script id="requestsTopBar" type="text/template">
+        <span class="pe-7s-filter request-filter-icon request-color" id="openRequestFilter"></span>
     </script>
 
     <script id="ticketTemplate" type="text/template">
@@ -176,6 +180,7 @@
 
     <script id="newTicketTemplate" type="text/template">
         <div class="container">
+          
             <div class="row">
                 <div class="col-xs-6">
                     <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
@@ -287,109 +292,108 @@
                 <a href="Conversation?toUserId={{model.get('ownerId')}}&traveId={{model.get('id')}}" >Send Message</a>
             </div>
         </div>
-        @*<table class="ticket-detail" style="margin:auto;">
-            <tr>
-                <td>
-                    <img id="ticketPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
-                </td>
-                <td></td>
-                <td>
-                    <label id="firstName">{{model.get('firstName')}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{model.get('fromCountry').name}}
-                </td>
-                <td></td>
-                <td>
-                    {{model.get('toCountry').name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{model.has('fromCity') ? model.get('fromCity').name : ''}}
-                </td>
-                <td><span class="pe-7s-plane"></span></td>
-                <td>
-                    {{model.has('toCity') ? model.get('toCity').name : ''}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{new Date(model.get('startDate')).toDateString()}}
-                </td>
-                <td></td>
-                <td>
-                    {{model.get('availableWeight')}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    {{model.get('explanation')}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <a href="Conversation?toUserId={{model.get('ownerId')}}&traveId={{model.get('id')}}" class="btn btn-default">Send Message</a>
-                </td>
-            </tr>
-        </table>*@
     </script>
 
     <script id="travelsTemplate" type="text/template">
-        @*<div class="row" style="margin:0;">
-                <div class="col-xs-7">
-                    <input id="filterTravel" type="text" class="form-control" placeholder="Search">
-                </div>
-                <div class="col-xs-2">
-                    <button type="submit" class="btn btn-primary">
-                        <i class="glyphicon glyphicon-filter"></i> Filter
-                    </button>
-                </div>
-            </div>*@
         <ul id="travelsItems" class="list-group"></ul>
     </script>
 
     <script id="requestsTemplate" type="text/template">
         <div class="row">
-            <div class="col-xs-7">
-                <input id="filterRequest" type="text" class="form-control" placeholder="Search">
-            </div>
-            <div class="col-xs-3">
-                <button type="submit" class="btn btn-primary">
-                    <i class="glyphicon glyphicon-filter"></i> Filter
-                </button>
-            </div>
         </div>
         <ul id="listOfRequests" class="list-group"></ul>
     </script>
 
+    <script id="requestFilterTemplate" type="text/template">
+        <div class="navbar navbar-default  navbar-fixed-top" style="padding-top: 20px;">
+            <div class="container-fluid">
+                <div class="row ">
+                    <div class="col-xs-4 top-bar-left">
+                        <span id="ticketFilterCancel">Cancel</span>
+                    </div>
+                    <div class="col-xs-4 top-bar-center">
+                        Filters
+                    </div>
+                    <div class="col-xs-4 top-bar-right">
+                        <span id="ticketFilterReset">Reset</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid main-container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <input id="ticketWildCard" type="text" class="form-control" placeholder="Fast Search">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    Depart From (Country)
+                    <select class="input-large form-control" id="fromCountry">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    Depart From (City)
+                    <select id="fromCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    Arrive To (Country)
+                    <select class="input-large form-control countries" id="toCountry">
+                        {% _.each(countries, function(country,index){   %}
+                        <option value="{{index}}">{{country}}</option>
+                        {%  }); %}
+                    </select>
+                </div>
+                <div class="col-xs-12 col-md-6">
+                    Arrive To (City)
+                    <select id="toCity" class="input-large form-control"></select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    Kg range:
+                    <span id="ticketWeightAmount"></span>
+                    <div id="ticketWeightRange"></div>
+                </div>
+            </div>
+        </div>
+        <div class="navbar navbar-default navbar-fixed-bottom">
+            <div class="row" style="margin:0;">
+                <button id="filterTickets" class="btn-default btn-danger ticket-filter-button">
+                    Filter
+                </button>
+            </div>
+        </div>
+    </script>
+
     <script id="requestTemplate" type="text/template">
-        <li class="list-group-item">
+        <li class="list-group-item list-items" style="min-height:60px; padding-left: 0;">
             <a id="request" href="/Request/{{model.get('id')}}" data-requestid="{{model.get('id')}}" data-bypass>
-                <div class="row">
-                    <div class="col-xs-5">
+                <div class="row" style="margin:0; ">
+                    <div class="col-xs-5" style="padding-right:0;">
                         {{model.has('fromCity') ? model.get('fromCountry').name + ', ' : model.get('fromCountry').name }}
                         {{model.has('fromCity') ? model.get('fromCity').name : ''}}
                     </div>
                     <div class="col-xs-1">
-                        <span class="pe-7s-gift"></span>
+                        <span class="pe-7s-gift request-color"></span>
                     </div>
                     <div class="col-xs-5">
                         {{model.has('toCity') ? model.get('toCountry').name + ', ' : model.get('toCountry').name }}
                         {{model.has('toCity') ? model.get('toCity').name : ''}}
                     </div>
-                    <span class="fa fa-angle-right list-item-arrow"></span>
+                    <span class="fa fa-angle-right list-item-arrow request-color"></span>
                 </div>
-                <div class="row">
-                    <div class="col-xs-4">
+                <div class="row" style="margin:0;">
+                    <div class="col-xs-8" style="font-weight:bold">
                         {{model.get('price')}}
+                        @*{{model.get('currency').name}}*@
                     </div>
-                    <div class="col-xs-4">
-                        {{model.get('currency')}}
-                    </div>
-                    <div class="col-xs-4">
+                    <div class="col-xs-3">
                         {{model.get('estimatedWeight')}} Kg
                     </div>
                 </div>
@@ -397,56 +401,55 @@
         </li>
     </script>
     <script id="requestDetailTemplate" type="text/template">
-        <table class="request-detail" style="margin:auto;">
-            <tr>
-                <td>
-                    <img id="requestPhoto" src="data:image/png;base64,{{model.get('photo')}}" />
-                </td>
-                <td></td>
-                <td>
-                    <label id="firstName">{{model.get('firstName')}}</label>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{model.get('fromCountry').name}}
-                </td>
-                <td></td>
-                <td>
-                    {{model.get('toCountry').name}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{model.has('fromCity') ? model.get('fromCity').name : ''}}
-                </td>
-                <td><span class="pe-7s-plane"></span></td>
-                <td>
-                    {{model.has('toCity') ? model.get('toCity').name : ''}}
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    {{model.get('estimatedWeight')}}
+        <div class="row request-detail-part">
+            <div class="col-xs-5" style="padding-right:0;">
+                <span class="ticket-info">Depart</span>
+                <br />
+                {{model.has('fromCity') ? model.get('fromCountry').name + ', ' : model.get('fromCountry').name }}
+                {{model.has('fromCity') ? model.get('fromCity').name : ''}}
+            </div>
+            <div class="col-xs-1" style=" padding-left 0; padding-top 20px;">
+                <span class="pe-2x pe-7s-gift request-color"></span>
+            </div>
+            <div class="col-xs-5" style="padding-right:0;">
+                <span class="ticket-info">Arrive</span>
+                <br />
+                {{model.has('toCity') ? model.get('toCountry').name + ', ' : model.get('toCountry').name }}
 
-                </td>
-                <td></td>
-                <td>
-                    {{model.get('price')}}
-                    {{model.get('currency')}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    {{model.get('explanation')}}
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">
-                    <a href="Conversation?toUserId={{model.get('ownerId')}}&requestId={{model.get('id')}}" class="btn btn-default">Send Message</a>
-                </td>
-            </tr>
-        </table>
+                {{model.has('toCity') ? model.get('toCity').name : ''}}
+            </div>
+        </div>
+        <div class="row request-detail-part">
+            <div class="col-xs-6">
+                <span class="ticket-info">Date</span>
+                <br />
+                {{moment(model.get('startDate')).format('LL')}}
+                <br />
+                ({{moment(model.get('startDate')).fromNow()}})
+            </div>
+            <div class="col-xs-6">
+                <span class="ticket-info">Estimated Weight</span>
+                <br />
+                {{model.get('availableWeight')}} Kg
+            </div>
+        </div>
+        <div class="row request-detail-part">
+            <div class="ticket-detail-user">
+                <img id="ticketPhoto" class="img-circle" src="data:image/png;base64,{{model.get('photo')}}" />
+                <br />
+                <label id="firstName">{{model.get('firstName')}}</label>
+            </div>
+            <div style="padding: 15px;">
+                {{model.get('explanation')}}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-offset-2 col-xs-8 send-message">
+                <a href="Conversation?toUserId={{model.get('ownerId')}}&requestId={{model.get('id')}}">Send Message</a>
+            </div>
+        </div>
+
+
     </script>
 
     <script id="newRequestTemplate" type="text/template">
@@ -551,7 +554,6 @@
                                     </div>
                                 </div>
                                 <small class="pull-left text-muted">
-
                                 </small>
                             </li>
                             {% }else { %}
@@ -635,7 +637,7 @@
     <script src="scripts/jquery/jquery-1.11.3.min.js"></script>
     <script src="scripts/jquery/jquery.bpopup.min.js"></script>
     <script src="scripts/jquery/jquery-ui.min.js"></script>
-    <script src="~/scripts/jquery/jquery.ui.touch-punch.min.js"></script>
+    <script src="scripts/jquery/jquery.ui.touch-punch.min.js"></script>
 
     <script src="scripts/bootstrap/bootstrap.js"></script>
     <script src="scripts/bootstrap/bootstrap-datepicker.min.js"></script>
@@ -647,6 +649,7 @@
     <script src="scripts/signalR/jquery.signalR-2.2.0.min.js"></script>
     <script src="scripts/signalR/hubs.js"></script>
 
+
     <script src="scripts/model/travel.model.js"></script>
     <script src="scripts/model/request.model.js"></script>
     <script src="scripts/model/user.model.js"></script>
@@ -655,6 +658,8 @@
     <script src="scripts/model/message.model.js"></script>
 
     <script src="scripts/resource/countries.js"></script>
+
+    @*<script src="https://maps.googleapis.com/maps/api/js?signed_in=true&libraries=places&callback=initMap&types=cities"></script>*@
 
     <script type="text/javascript">
         _.templateSettings = {
@@ -672,19 +677,21 @@
     </script>
 
 
-
+    <script src="scripts/view/controller.js"></script>
     <script src="scripts/view/main.view.js"></script>
     <script src="scripts/view/topBar.view.js"></script>
     <script src="scripts/view/login.view.js"></script>
     <script src="scripts/view/request.view.js"></script>
     <script src="scripts/view/requests.view.js"></script>
     <script src="scripts/view/newRequest.view.js"></script>
+    <script src="scripts/view/requestFilter.view.js"></script>
     <script src="scripts/view/travel.view.js"></script>
     <script src="scripts/view/travels.view.js"></script>
     <script src="scripts/view/newTravel.view.js"></script>
     <script src="scripts/view/ticketFilter.view.js"></script>
+    
 
-    <script src="scripts/view/city.view.js"></script>
+    @*<script src="scripts/view/city.view.js"></script>*@
 
     <script src="scripts/view/conversation.view.js"></script>
     <script src="scripts/view/conversations.view.js"></script>
