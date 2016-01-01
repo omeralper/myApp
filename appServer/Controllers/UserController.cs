@@ -2,7 +2,7 @@
 using appServer.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
-using Omu.ValueInjecter;
+//using Omu.ValueInjecter;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;

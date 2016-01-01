@@ -13,6 +13,8 @@ using appServer.Models;
 using appServer.App_Start;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using System.Collections.Specialized;
+using System.Web;
 
 namespace appServer.Controllers
 {
@@ -34,9 +36,52 @@ namespace appServer.Controllers
         }
 
         // GET: api/Requests
-        public IQueryable<Request> GetRequests()
+        public IList<RequestDTO> GetRequests()
         {
-            return db.Requests;
+            NameValueCollection nvc = HttpUtility.ParseQueryString(Request.RequestUri.Query);
+            string wildCard = nvc["ticketWildCard"] == null ? "" : nvc["ticketWildCard"].ToString();
+            int fromCountry = nvc["fromCountry"] == null ? 0 : Convert.ToInt32(nvc["fromCountry"]);
+            int fromCity = nvc["fromCity"] == null ? 0 : Convert.ToInt32(nvc["fromCity"]);
+            int toCountry = nvc["toCountry"] == null ? 0 : Convert.ToInt32(nvc["toCountry"]);
+            int toCity = nvc["toCity"] == null ? 0 : Convert.ToInt32(nvc["toCity"]);
+            int weightMin = nvc["weightMin"] == null ? 0 : Convert.ToInt32(nvc["weightMin"]);
+            int weightMax = nvc["weightMax"] == null ? 30 : Convert.ToInt32(nvc["weightMax"]);
+            //int volumeMin = nvc["volumeMin"] == null ? 0 : Convert.ToInt32(nvc["volumeMin"]);
+            //int volumeMax = nvc["volumeMax"] == null ? 30 : Convert.ToInt32(nvc["volumeMax"]);
+            //TODO- burada conditional linq nasıl yazılıyor bilmiyorum. if/else kullanmadan, olmayan query parametrelerini linq'e dahil etmeyelim
+            //TODO- object mapping yapılmalı
+            var results = db.Requests.Where(t =>
+                   ((wildCard == "" ? true : (t.explanation.Contains(wildCard)
+                   || t.fromCountry.name.Contains(wildCard)
+                   || t.toCountry.name.Contains(wildCard)
+                   || (t.toCityId.HasValue && t.toCity.name.ToString().Contains(wildCard))
+                   || (t.fromCityId.HasValue && t.fromCity.name.ToString().Contains(wildCard))))
+                   && (fromCountry == 0 ? true : t.fromCountryId == fromCountry)
+                   && (fromCity == 0 ? true : t.fromCityId == fromCity)
+                   && (toCountry == 0 ? true : t.toCountryId == toCountry)
+                   && (toCity == 0 ? true : t.toCityId == toCity)
+                   && (weightMin == 0 ? true : t.estimatedWeight > weightMin)
+                   && (weightMax == 30 ? true : t.estimatedWeight < weightMax))
+         ).ToList();
+            var results2 = results
+           .Select(t => new RequestDTO()
+           {
+               id = t.id,
+               ownerId = t.ownerId,
+               UserName = t.owner.UserName,
+               firstName = t.owner.firstName,
+               photo = t.owner.photo,
+               fromCity = t.fromCity,
+               fromCountry = t.fromCountry,
+               toCity = t.toCity,
+               toCountry = t.toCountry,
+               estimatedWeight = t.estimatedWeight,
+               price = t.price,
+               itemType = t.itemType,
+               explanation = t.explanation
+           }).ToList();
+
+            return results2;
         }
 
         // GET: api/Requests/5
