@@ -5,7 +5,7 @@
         attributes: { id: 'travelsView' },
         template: template('travelsTemplate'),
         ticketTemplate: template('ticketTemplate'),
-        //bannerRentTemplate: template('bannerForTicketTemplate'),
+        ticketsTopBar: template('ticketsTopBar'),
         events: {
             'change input': 'change',
             'change select': 'change',
@@ -13,8 +13,8 @@
             //'focusout #filterTravel' : 'refreshList'  
         },
         initialize: function (params) {
-            this.fragment = params.fragment;
-            this.name = 'Tickets';
+            //this.fragment = params.fragment;
+            //this.name = 'Tickets';
             //this.model = new app.Models.TravelFilterModel();
             this.listenTo(app.Events, 'ticketSearch', this.refreshList);
             this.collection = new app.Collections.TravelCollection();
@@ -22,15 +22,13 @@
             this.render(params);
         },
         render: function (params) {
-            var html = this.$el.html(this.template());
-            $('#container').append(html);
-            //$('#bannerRent').html(this.bannerRentTemplate());
-
-            //if (params.backViewLink)
-            //    $('#backView').html(this.backViewTemplate(params));
-
+            $('#container').append(this.$el.html(this.template()));
+            this.renderHeader();
             this.refreshList();
             return this;
+        },
+        renderHeader : function(){
+            app.topBar.render('Tickets',this.ticketsTopBar());
         },
         refreshList: function (model) {
             //if (evt && !evt.target.value)
@@ -62,6 +60,5 @@
             app.CurrentTicket= this.collection.get(ticketid);
             app.RouterInstance.navigate('Travel/' + ticketid, { trigger: true });
         },
-       
     });
 });

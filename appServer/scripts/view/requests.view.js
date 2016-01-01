@@ -1,9 +1,9 @@
 ﻿$(function () {
     app.Views.RequestsView = app.Views.MainView.extend({
         attributes: { id: 'requestsView' },
-        //el: '#container',
         template: template('requestsTemplate'),
         requestTemplate: template('requestTemplate'),
+        requestsTopBar: template('requestsTopBar'),
         events: {
             'change input': 'change',
             'change select': 'change',
@@ -19,8 +19,12 @@
         },
         render: function (params) {
             $('#container').append(this.$el.html(this.template()));
+            this.renderHeader();
             this.refreshList();
             return this;
+        },
+        renderHeader: function () {
+            app.topBar.render('Requests', this.requestsTopBar());
         },
         refreshList: function (evt) {
             //if (evt && !evt.target.value)

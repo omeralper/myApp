@@ -1,10 +1,13 @@
 ﻿$(function () {
     app.Views.RequestView = app.Views.MainView.extend({
+        className: 'container',
         attributes: { id: 'requestView' },
         requestDetailTemplate: template('requestDetailTemplate'),
         events: {
             'change input': 'change',
-            'change select': 'change'
+            'change select': 'change',
+            'click #submitTicket ': 'ticketSubmit',
+            'tap #submitTicket ': 'ticketSubmit'
         },
         name:'Request',
         initialize: function (params) {
@@ -24,9 +27,20 @@
             }
         },
         render: function (params) {
-            var html = this.$el.html(this.requestDetailTemplate({ model: this.model, params: params }));
-            $('#container').append(html);
+            $('#container').removeClass('animated fadeInRight');
+            var html = this.$el.html(this.requestDetailTemplate({ model: this.model }));
+            $('#container').append(html).addClass('animated fadeInRight');
             return this;
+
+            //$('#container').removeClass('animated fadeInRight');
+            //var html = this.$el.html(this.ticketDetailTemplate({ model: this.model }));//.hide().fadeIn().slideDown();;
+            //$('#container').append(html).addClass('animated fadeInRight');//.delay(1000).removeClass('fadeInRight');//.hide().toggle("slide", { direction: 'right' });;
+
+            //this.$('#startDate').datepicker({
+            //    autoclose: true,
+            //    todayHighlight: true
+            //})
+            //return this;
         },
         change: function (evt) {
             var changed = evt.currentTarget;

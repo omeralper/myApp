@@ -1,11 +1,5 @@
 ﻿$(function () {
     app.Router = Backbone.Router.extend({
-        activeViews: [],
-        clearViews: function () {
-            //this.currentViews.push
-            //for (var i = 0 ; i < this.currentViews.length ; i++)
-            //    this.currentViews[i].remove();
-        },
         routes: {
             '': 'home',
             'NewTravel': 'newTravel',
@@ -20,71 +14,38 @@
             'Login' : 'login',
             '*notFound': 'home',
         },
-
         initialize: function () {
-            this.topBar = new app.Views.TopBarView();
-        },
-        changePage: function (view, options) {
-            var fragment = Backbone.history.getFragment();
-            
-            var currentView = this.activeViews[this.activeViews.length - 1];
-            var previousView = this.activeViews[this.activeViews.length - 2];
-            var backView = this.activeViews[this.activeViews.length - 3];
-
-            if (previousView && previousView.fragment == fragment) {//go back
-                var lastView = this.activeViews.pop();
-                lastView.slide().remove();
-                $('.ui-effects-wrapper').remove();
-
-                if (backView) {
-                    var link = backView.fragment ? backView.fragment : app.Root;
-                    this.topBar.setBackArrow(link, backView.name);
-                } else {
-                    this.topBar.removeBackArrow();
-                }
-                previousView.slide();
-            } else {//go forward
-                var thisRouter = this;
-                if (currentView) {
-                    currentView.hide();
-                    var link = currentView.fragment ? currentView.fragment : app.Root;
-                    this.topBar.setBackArrow(link, currentView.name);
-                }
-
-                options.fragment = fragment;
-                this.activeViews.push(new view(options));
-            }
-            app.Events.trigger('newPageRendered', this.activeViews[this.activeViews.length - 1]);
+            app.topBar = new app.Views.TopBarView();
         },
         home: function (userId) {
-            this.changePage(app.Views.TravelsView, {});
+            app.Controller.changePage(app.Views.TravelsView, {});
         },
         travel: function (query) {
-            this.changePage(app.Views.TravelView, { query: query, model: app.CurrentTicket });
+            app.Controller.changePage(app.Views.TravelView, { query: query, model: app.CurrentTicket });
             app.CurrentTicket = undefined;
         },
-        newTravel : function(){
-            this.changePage(app.Views.NewTravelView, {});
+        newTravel: function () {
+            app.Controller.changePage(app.Views.NewTravelView, {});
         },
         travels: function () {
-            this.changePage(app.Views.TravelsView, {});
+            app.Controller.changePage(app.Views.TravelsView, { cleanPast: true });
         },
         request: function (query) {
-            this.changePage( app.Views.RequestView, { query: query });
+            app.Controller.changePage(app.Views.RequestView, { query: query, model: app.CurrentRequest });
             app.CurrentRequest = undefined;
         },
-        newRequest : function(){
-            this.changePage(app.Views.NewRequestView, {});
+        newRequest: function () {
+            app.Controller.changePage(app.Views.NewRequestView, {});
         },
         requests: function () {
-            this.changePage(app.Views.RequestsView, {});
+            app.Controller.changePage(app.Views.RequestsView, { cleanPast: true });
         },
         conversation: function (params) {
             var toUserId = getParameterByName('toUserId');
             var requestId = getParameterByName('requestId');
             var travelId = getParameterByName('travelId');
             var id = getParameterByName('id');
-            this.changePage(app.Views.ConversationView, {
+            app.Controller.changePage(app.Views.ConversationView, {
                 id: id,
                 toUserId: toUserId,
                 travelId: travelId,
@@ -92,13 +53,13 @@
             });
         },
         conversations: function () {
-            this.changePage(app.Views.ConversationsView, {});
+            app.Controller.changePage(app.Views.ConversationsView, { cleanPast: true });
         },
         createNew: function () {
-            this.changePage(app.Views.CreateNewView, {});
+            app.Controller.changePage(app.Views.CreateNewView, { cleanPast: true });
         },
         login: function () {
-            this.changePage(app.Views.LoginView, {});
+            app.Controller.changePage(app.Views.LoginView, {});
         }
     });
 
